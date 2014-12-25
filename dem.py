@@ -4,7 +4,7 @@ import wave
 import numpy as np
 
 chunk = 2048
-
+# http://en.wikipedia.org/wiki/Goertzel_algorithm
 # open up a wave
 wf = wave.open('output.wav', 'rb')
 swidth = wf.getsampwidth()
