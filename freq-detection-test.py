@@ -1,6 +1,7 @@
 #github.com/endolith
+#numpy, libsndfile, SciKits.audiolab, MatPlotLib, SciPy, parabolic(?)
 from __future__ import division
-from scikits.audiolab import flacread
+from scikits.audiolab import wavread
 from numpy.fft import rfft, irfft
 from numpy import argmax, sqrt, mean, diff, log
 from matplotlib.mlab import find
@@ -94,7 +95,7 @@ def freq_from_HPS(sig, fs):
 filename = sys.argv[1]
  
 print 'Reading file "%s"\n' % filename
-signal, fs, enc = flacread(filename)
+signal, fs, enc = wavread(filename)
  
 print 'Calculating frequency from FFT:',
 start_time = time()
