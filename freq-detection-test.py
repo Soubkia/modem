@@ -34,6 +34,10 @@ def freq_from_fft(sig, fs):
     
     """
     # Compute Fourier transform of windowed signal
+    #print "\n signal: " + str(signal) # Debug
+    #print "\n signal length: " + str(len(signal)) # Debug
+    #print "\n blackmanharris(signal): " + str(blackmanharris(len(signal))) # Debug
+    #print "\n blackmanharris(signal) length: " + str(len(blackmanharris(len(signal)))) # Debug
     windowed = signal * blackmanharris(len(signal))
     f = rfft(windowed)
     
@@ -96,6 +100,9 @@ filename = sys.argv[1]
  
 print 'Reading file "%s"\n' % filename
 signal, fs, enc = wavread(filename)
+print "signal: " + str(signal)
+print "fs: " + str(fs)
+print "enc: " + str(enc)
  
 print 'Calculating frequency from FFT:',
 start_time = time()
