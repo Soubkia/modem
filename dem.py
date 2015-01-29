@@ -2,13 +2,21 @@
 import pyaudio
 import wave
 import numpy as np
+from modem import BITRATE
+from modem import RATE
+from modem import HIGH_NOTE
+from modem import LOW_NOTE
+from modem import INPUT_FILE_BIN
+from modem import START_TIME
+from modem import OUTPUT_FILENAME
 
-chunk = 2048
+chunk = 1024
 # http://en.wikipedia.org/wiki/Goertzel_algorithm
 # open up a wave
 wf = wave.open('output.wav', 'rb')
-swidth = wf.getsampwidth()
-RATE = wf.getframerate()
+swidth = wf.getsampwidth() # Each sample is 2 bytes
+RATE = wf.getframerate() # 44100 samples are taken per second (356352 total frames currently)
+chunk = int(RATE*BITRATE)
 # use a Blackman window
 window = np.blackman(chunk)
 # open stream
@@ -21,6 +29,7 @@ stream = p.open(format =
 
 # read some data
 data = wf.readframes(chunk)
+count = 0 # Debug
 # play stream and find the frequency of each chunk
 while len(data) == chunk*swidth:
     # write data out to the audio stream
@@ -38,12 +47,13 @@ while len(data) == chunk*swidth:
         x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
         # find the frequency and output it
         thefreq = (which+x1)*RATE/chunk
-        print "The freq is %f Hz." % (thefreq)
+        print "The freq is %f Hz. (frame %s)" % (thefreq, count)
     else:
         thefreq = which*RATE/chunk
-        print "The freq is %f Hz." % (thefreq)
+        print "The freq is %f Hz. (frame %s)" % (thefreq, count)
     # read some more data
     data = wf.readframes(chunk)
+    count = count + 1 # Debug
 if data:
     stream.write(data)
 stream.close()
