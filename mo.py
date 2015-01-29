@@ -55,13 +55,10 @@ def play_file(high_note=HIGH_NOTE, low_note=LOW_NOTE, bitrate=BITRATE, rate=RATE
 
 #TODO: Record the raw data instead of recording through a microphone
 #	   Reorganize this function's initialization
-def record_file(file_playback_time=len(INPUT_FILE_BIN)*BITRATE):
+def record_file(RECORD_SECONDS=len(INPUT_FILE_BIN)*BITRATE):
     CHUNK = 1024
     FORMAT = pyaudio.paInt16
-    CHANNELS = 1 #2 Try mono
-    #RATE = 44100
-    RECORD_SECONDS = file_playback_time
-    WAVE_OUTPUT_FILENAME = OUTPUT_FILENAME
+    CHANNELS = 1 #Mono
 
     p = pyaudio.PyAudio()
 
@@ -85,7 +82,7 @@ def record_file(file_playback_time=len(INPUT_FILE_BIN)*BITRATE):
     stream.close()
     p.terminate()
 
-    wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+    wf = wave.open(OUTPUT_FILENAME, 'wb')
     wf.setnchannels(CHANNELS)
     wf.setsampwidth(p.get_sample_size(FORMAT))
     wf.setframerate(RATE)

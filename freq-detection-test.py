@@ -33,11 +33,13 @@ def freq_from_fft(sig, fs):
     """Estimate frequency from peak of FFT
     
     """
+    # Debug
+    # print "\n signal: " + str(signal)
+    # print "\n signal length: " + str(len(signal))
+    # print "\n blackmanharris(signal): " + str(blackmanharris(len(signal)))
+    # print "\n blackmanharris(signal) length: " + str(len(blackmanharris(len(signal))))
+
     # Compute Fourier transform of windowed signal
-    #print "\n signal: " + str(signal) # Debug
-    #print "\n signal length: " + str(len(signal)) # Debug
-    #print "\n blackmanharris(signal): " + str(blackmanharris(len(signal))) # Debug
-    #print "\n blackmanharris(signal) length: " + str(len(blackmanharris(len(signal)))) # Debug
     windowed = signal * blackmanharris(len(signal))
     f = rfft(windowed)
     
@@ -121,5 +123,5 @@ print 'Time elapsed: %.3f s\n' % (time() - start_time)
  
 print 'Calculating frequency from harmonic product spectrum:'
 start_time = time()
-#freq_from_HPS(signal, fs)
+freq_from_HPS(signal, fs)
 print 'Time elapsed: %.3f s\n' % (time() - start_time)
