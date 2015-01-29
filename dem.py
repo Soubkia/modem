@@ -10,13 +10,13 @@ from modem import INPUT_FILE_BIN
 from modem import START_TIME
 from modem import OUTPUT_FILENAME
 
-chunk = 1024
 # http://en.wikipedia.org/wiki/Goertzel_algorithm
 # open up a wave
 wf = wave.open('output.wav', 'rb')
 swidth = wf.getsampwidth() # Each sample is 2 bytes
 RATE = wf.getframerate() # 44100 samples are taken per second (356352 total frames currently)
 chunk = int(RATE*BITRATE)
+OUTPUT_FILE_BIN = []
 # use a Blackman window
 window = np.blackman(chunk)
 # open stream
@@ -54,7 +54,15 @@ while len(data) == chunk*swidth:
     # read some more data
     data = wf.readframes(chunk)
     count = count + 1 # Debug
+    if thefreq < 330:
+        OUTPUT_FILE_BIN.append(0)
+    else:
+        OUTPUT_FILE_BIN.append(1)
 if data:
     stream.write(data)
 stream.close()
 p.terminate()
+print OUTPUT_FILE_BIN, INPUT_FILE_BIN
+print "Sanity Check"
+for i in range(len(INPUT_FILE_BIN)-2):
+    print OUTPUT_FILE_BIN[i], INPUT_FILE_BIN[i+2]

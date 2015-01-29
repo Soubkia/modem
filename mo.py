@@ -56,7 +56,7 @@ def play_file(high_note=HIGH_NOTE, low_note=LOW_NOTE, bitrate=BITRATE, rate=RATE
 #TODO: Record the raw data instead of recording through a microphone
 #	   Reorganize this function's initialization
 def record_file(RECORD_SECONDS=len(INPUT_FILE_BIN)*BITRATE):
-    CHUNK = 1024
+    CHUNK = 1024 #This might need to be recorded with the same chunk size as in dem.py?
     FORMAT = pyaudio.paInt16
     CHANNELS = 1 #Mono
 
