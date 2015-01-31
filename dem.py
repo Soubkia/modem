@@ -33,7 +33,7 @@ count = 0 # Debug
 # play stream and find the frequency of each chunk
 while len(data) == chunk*swidth:
     # write data out to the audio stream
-    stream.write(data)
+    #stream.write(data) # Uncomment to hear audio as frequencies are read
     # unpack the data and times by the hamming window
     indata = np.array(wave.struct.unpack("%dh"%(len(data)/swidth),\
                                          data))*window
