@@ -97,7 +97,17 @@ def freq_from_HPS(sig, fs):
         subplot(maxharms,1,x)
         plot(log(c))
     show()
- 
+
+def live_test():
+    f = Sndfile(sys.argv[1], 'r')
+    RATE = f.samplerate
+    CHANNELS = f.CHANNELS
+    ENCODING = f.encoding
+    FORMAT = f.format
+    CHUNK_SIZE = int(RATE*BITRATE)#Possibly need to multiply by sample size?
+
+    f.read_frames(CHUNKSIZE)
+
 filename = sys.argv[1]
  
 print 'Reading file "%s"\n' % filename
