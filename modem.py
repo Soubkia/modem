@@ -8,6 +8,8 @@ import numpy
 import threading
 import time
 
+#NOTE: Try not doubling the note and instead use a 5th or 3rd as this may be making it harder to identify???
+
 START_TIME = time.time()+1 #Timekeeper (waits 1 second to start)
 HIGH_NOTE = 440 #Note when 1
 LOW_NOTE = 220 #Note when 0
